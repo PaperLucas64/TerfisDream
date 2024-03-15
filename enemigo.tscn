@@ -1,0 +1,82 @@
+[gd_scene load_steps=14 format=3 uid="uid://djns8v3au2l21"]
+
+[ext_resource type="Script" path="res://enemigo.gd" id="1_ij6m2"]
+[ext_resource type="Texture2D" uid="uid://d0ooeyuixwm1t" path="res://Sprites/papel01.png" id="2_shjuh"]
+[ext_resource type="Texture2D" uid="uid://dewpna3uqk7aw" path="res://Sprites/papel02.png" id="3_k0bxc"]
+[ext_resource type="Texture2D" uid="uid://fx3fseoeyp3x" path="res://Sprites/papel03.png" id="4_li17s"]
+[ext_resource type="Texture2D" uid="uid://c3sanaktrd1kh" path="res://Sprites/papel04.png" id="5_2xjdp"]
+[ext_resource type="Texture2D" uid="uid://bajbs5oc4gp2x" path="res://Sprites/Chocolate01.png" id="8_8gbvg"]
+[ext_resource type="Texture2D" uid="uid://00vko3bi2taw" path="res://Sprites/Chocolate04.png" id="9_2tyu1"]
+[ext_resource type="Texture2D" uid="uid://cqq6niectoxut" path="res://Sprites/Chocolate03.png" id="10_5jlqf"]
+[ext_resource type="Texture2D" uid="uid://cocb3d10thrwt" path="res://Sprites/cucaracha1.png" id="10_dsv57"]
+[ext_resource type="Texture2D" uid="uid://d4gfewdtn5u1g" path="res://Sprites/Chocolate02.png" id="11_54cot"]
+[ext_resource type="Texture2D" uid="uid://bx11ba6nbnk85" path="res://Sprites/cucaracha2.png" id="11_pq83s"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wynwt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_shjuh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_k0bxc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_li17s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2xjdp")
+}],
+"loop": true,
+"name": &"BolaP",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_dsv57")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_pq83s")
+}],
+"loop": true,
+"name": &"Cucaracha",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_8gbvg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_2tyu1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_5jlqf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_54cot")
+}],
+"loop": true,
+"name": &"Huevochocolate",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_scuqg"]
+radius = 45.0999
+
+[node name="Enemigo" type="RigidBody2D"]
+collision_layer = 0
+gravity_scale = 0.0
+script = ExtResource("1_ij6m2")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(317, 300)
+sprite_frames = SubResource("SpriteFrames_wynwt")
+animation = &"BolaP"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(320, 308)
+shape = SubResource("CircleShape2D_scuqg")
+
+[node name="Visibilidad" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="Visibilidad" to="." method="_on_visibilidad_screen_exited"]

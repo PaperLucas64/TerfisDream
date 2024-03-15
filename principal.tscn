@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://dq2chhj7iulfa"]
+
+[ext_resource type="Script" path="res://principal.gd" id="1_8sn42"]
+[ext_resource type="PackedScene" uid="uid://djns8v3au2l21" path="res://enemigo.tscn" id="2_lkd37"]
+[ext_resource type="PackedScene" uid="uid://eybvo4khvjje" path="res://jugador.tscn" id="2_pugp6"]
+[ext_resource type="Texture2D" uid="uid://kdjtiglie24g" path="res://imagenes/Diseño sin título (3).png" id="3_7dayy"]
+[ext_resource type="AudioStream" uid="uid://bj4nur26nr3d7" path="res://BGM/gameover.wav" id="3_p45ns"]
+[ext_resource type="AudioStream" uid="uid://d0qo4g70v3f2d" path="res://BGM/SoJuego.ogg" id="4_krips"]
+[ext_resource type="Script" path="res://BoPosicion.gd" id="5_ugsn6"]
+
+[sub_resource type="Curve2D" id="Curve2D_vbufo"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 5, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 600, 0, 0, 0, 0, 0, 600, 700, 0, 0, 0, 0, 0, 700, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 5, -3)
+}
+point_count = 7
+
+[node name="principal" type="Node"]
+script = ExtResource("1_8sn42")
+Bola = ExtResource("2_lkd37")
+
+[node name="Fondo" type="TextureRect" parent="."]
+offset_left = -145.0
+offset_top = -1044.0
+offset_right = 879.0
+offset_bottom = 748.0
+scale = Vector2(0.88271, 0.979614)
+texture = ExtResource("3_7dayy")
+
+[node name="jugador" parent="." instance=ExtResource("2_pugp6")]
+position = Vector2(220, 237)
+
+[node name="BolaTimer" type="Timer" parent="."]
+wait_time = 0.6
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="InicioTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AudioGaOver" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_p45ns")
+
+[node name="Audiojugando" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_krips")
+
+[node name="BoCamino" type="Path2D" parent="."]
+curve = SubResource("Curve2D_vbufo")
+
+[node name="BoPosicion" type="PathFollow2D" parent="BoCamino"]
+position = Vector2(5, -3)
+rotation = 2.60117
+script = ExtResource("5_ugsn6")
+
+[node name="PosInicio" type="Marker2D" parent="."]
+position = Vector2(300, 305)
+
+[connection signal="choque" from="jugador" to="." method="game_over"]
+[connection signal="timeout" from="BolaTimer" to="." method="_on_bola_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="InicioTimer" to="." method="_on_inicio_timer_timeout"]

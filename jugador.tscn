@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://eybvo4khvjje"]
+
+[ext_resource type="Script" path="res://jugador.gd" id="1_ep6l1"]
+[ext_resource type="Texture2D" uid="uid://cnjqj67jhchj6" path="res://Sprites/Terfintia.png" id="1_xevvx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v8ith"]
+radius = 451.0
+height = 950.0
+
+[node name="jugador" type="Area2D"]
+position = Vector2(279, 251)
+scale = Vector2(0.16, 0.16)
+script = ExtResource("1_ep6l1")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -0.00446738
+texture = ExtResource("1_xevvx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_v8ith")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
